@@ -41,10 +41,10 @@ const Footer = () => {
                 <nav className="items-center space-y-4 ">
                     <h6 className="footer-title">FOLLOW US</h6>
                     <div className="space-y-4 text-">
-                        <a className="flex items-center cursor-pointer gap-1"><FaFacebookF />Facebook</a>
-                        <a className="flex items-center cursor-pointer gap-1"><FaTwitter />Twitter</a>
-                        <a className="flex items-center cursor-pointer gap-1"><FaLinkedinIn />Linkedin</a>
-                        <a className="flex items-center cursor-pointer gap-1"><FaInstagram />Instaragram</a>
+                        <Link target="_blank" to={"https://www.facebook.com/md.srrumon121"} className="flex items-center cursor-pointer gap-1"><FaFacebookF />Facebook</Link>
+                        <Link target="_blank" to={"https://twitter.com/Rumon_Sarker1"} className="flex items-center cursor-pointer gap-1"><FaTwitter />Twitter</Link>
+                        <Link target="_blank" to={"https://www.linkedin.com/in/md-rumon-sarker-589209241/"} className="flex items-center cursor-pointer gap-1"><FaLinkedinIn />Linkedin</Link>
+                        <Link to={"/"} className="flex items-center cursor-pointer gap-1"><FaInstagram />Instaragram</Link>
                     </div>
                 </nav>
 

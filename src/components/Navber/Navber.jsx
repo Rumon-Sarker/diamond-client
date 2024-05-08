@@ -2,9 +2,10 @@ import { CiMenuFries } from "react-icons/ci";
 import { FaShoppingBag } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import useCart from "../../hooks/useCart";
 
 const Navber = () => {
-
+    const [cartData] = useCart();
     // withouSidebarRoutes and navigationbar
     const withouSidebarRoutes = ["/404", "/login", "/signup"];
     const { pathname } = useLocation();
@@ -51,13 +52,12 @@ const Navber = () => {
                 </ul>
             </div>
             <div className="navbar-end md:gap-4 gap-2">
-                <Link to={"/cart"} className="md:text-3xl gap-0 text-xl">
-                    <button className="btn bg-gray-300">
-                        <h1 className="text-2xl"><FaShoppingBag /></h1>
-                        <div className="mb-4 text-xl -ml-2">+0</div>
+                <Link to={"/cart"} className="md:text-xl gap-0 text-xl">
+                    <button className="btn flex bg-gray-300">
+                        <h1 className="text-2xl flex"><FaShoppingBag /> <span className=" -mt-4 text-xl font-bold text-red-500 ">+ {cartData?.length ? cartData?.length : 0}</span></h1>
                     </button>
                 </Link>
-                <Link to={"/shop"} className="border-2 p-2 rounded">Shop Now</Link>
+                <Link to={"/shop"} className="border-2 md:p-2 rounded">Shop Now</Link>
             </div>
         </div>
     );

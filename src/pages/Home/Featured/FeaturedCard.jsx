@@ -1,13 +1,37 @@
 import { Rating } from '@smastrom/react-rating';
-import '@smastrom/react-rating/style.css'
+import axios from 'axios';
 import PropTypes from 'prop-types';
-import { GoKebabHorizontal } from 'react-icons/go';
+import { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { TbShoppingBagPlus } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../providers/AuthProvider';
+import useCart from '../../../hooks/useCart';
 const FeaturedCard = ({ item }) => {
-    const { name, title, img, price, star, } = item;
+    const { user } = useContext(AuthContext);
+    const { name, title, description, img, price, star, category, _id } = item;
+    const [, refetch] = useCart();
+
+    const handaleAddToCart = async () => {
+        const cartInfo = {
+            name,
+            email: user?.email,
+            price,
+            img,
+            title,
+            category,
+            star,
+            description
+
+        }
+        const res = await axios.post("http://localhost:5000/cart", cartInfo);
+        if (res.data.insertedId) {
+            refetch();
+            toast.success("Items Added Success");
+        }
+    }
     return (
-        <Link>
+        <div >
             <div className="card glass mx-auto hover:shadow-2xl">
                 <figure><img src={img} alt="car!" /></figure>
                 <div className="card-body">
@@ -21,13 +45,13 @@ const FeaturedCard = ({ item }) => {
                             readOnly
                         ></Rating>
                         <div className='flex gap-3 text-3xl'>
-                            <button className='hover:text-green-700'><TbShoppingBagPlus /></button>
-                            <button><GoKebabHorizontal /></button>
+                            <button onClick={() => handaleAddToCart()} className='hover:text-green-700'><TbShoppingBagPlus /></button>
+                            <Link className='btn' to={`/details/${_id}`}>details</Link>
                         </div>
                     </div>
                 </div>
             </div>
-        </Link>
+        </div>
     );
 };
 FeaturedCard.propTypes = {

@@ -10,6 +10,7 @@ import SignUp from "../pages/SignUp/SignUp";
 import Login from "../pages/Login/Login";
 import PrivetRoutes from "./PrivetRoutes";
 import NotFound from "../pages/NotFound/NotFound";
+import ProductDetails from "../pages/ProductDetails/ProductDetails";
 
 export const router = createBrowserRouter([
     {
@@ -47,6 +48,11 @@ export const router = createBrowserRouter([
             {
                 path: "/contact",
                 element: <Contact></Contact>
+            },
+            {
+                path: "/details/:id",
+                element: <ProductDetails></ProductDetails>,
+                loader: async ({ params }) => fetch(`http://localhost:5000/allItems/${params.id}`)
             },
             {
                 path: "/login",

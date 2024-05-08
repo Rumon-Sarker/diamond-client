@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const SocialLogin = () => {
+
     const { socailLogin } = useContext(AuthContext);
     const navigate = useNavigate();
     const handaleGooleSignUp = async () => {

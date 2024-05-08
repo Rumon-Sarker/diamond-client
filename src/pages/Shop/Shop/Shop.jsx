@@ -1,12 +1,28 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FeaturedCard from "../../Home/Featured/FeaturedCard";
+import useAxios from "../../../hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
+
 
 const Shop = () => {
-    const [loading, setLoading] = useState(false);
-    const [allItems, setAllItems] = useState();
     const [category, setCategory] = useState();
     const [searchValu, setSearchValue] = useState("");
     const [sortDataValue, setSortDataValue] = useState("");
+
+
+    // product Data Feteching 
+
+    const axiosBaseUrl = useAxios();
+    const data = useQuery({
+        queryKey: ["allProducts"],
+        queryFn: async () => {
+            const res = await axiosBaseUrl.get("/allItems")
+            return (res.data);
+        }
+    })
+    const allItems = data.data;
+
+
 
     const accessories = allItems?.filter(items => (items?.category === "accessories"));
     const bracelets = allItems?.filter(items => (items?.category === "bracelets"));
@@ -31,21 +47,7 @@ const Shop = () => {
         setSortDataValue(e.target.value)
 
     }
-    // product Data Feteching 
-    useEffect(() => {
-        fetch("all-products.json")
-            .then(res => res.json())
-            .then(data => {
-                setLoading(true);
-                setAllItems(data)
 
-            })
-
-    }, [])
-
-    if (!loading) {
-        return <span className="loading  font-bold text-black my-52 flex mx-auto loading-spinner loading-lg"></span>
-    }
 
     return (
         <>

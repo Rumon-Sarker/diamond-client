@@ -4,6 +4,8 @@ import { IoDiamondOutline } from "react-icons/io5";
 import { Link, NavLink, useLocation } from "react-router-dom";
 
 const Navber = () => {
+
+    // withouSidebarRoutes and navigationbar
     const withouSidebarRoutes = ["/404", "/login", "/signup"];
     const { pathname } = useLocation();
     if (withouSidebarRoutes.some((item) => pathname.includes(item)))

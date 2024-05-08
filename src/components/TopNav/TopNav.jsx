@@ -5,6 +5,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 
 const TopNav = () => {
 
+    // withouTopNav
     const withouSidebarRoutes = ["/404", "/login", "/signup"];
     const { pathname } = useLocation();
     if (withouSidebarRoutes.some((item) => pathname.includes(item)))

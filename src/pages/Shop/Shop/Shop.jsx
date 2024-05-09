@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FeaturedCard from "../../Home/Featured/FeaturedCard";
 import useAxios from "../../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
@@ -8,22 +8,23 @@ const Shop = () => {
     const [category, setCategory] = useState();
     const [searchValu, setSearchValue] = useState("");
     const [sortDataValue, setSortDataValue] = useState("");
+    const [page, setPage] = useState(1);
+
 
 
     // product Data Feteching 
-
     const axiosBaseUrl = useAxios();
-    const data = useQuery({
+
+    const { data: allItems = [], refetch } = useQuery({
         queryKey: ["allProducts"],
         queryFn: async () => {
-            const res = await axiosBaseUrl.get("/allItems")
+            const res = await axiosBaseUrl.get("/allItems");
             return (res.data);
         }
-    })
-    const allItems = data.data;
+    });
 
 
-
+    // finding category
     const accessories = allItems?.filter(items => (items?.category === "accessories"));
     const bracelets = allItems?.filter(items => (items?.category === "bracelets"));
     const engajements = allItems?.filter(items => (items?.category === "engajements"));
@@ -37,6 +38,31 @@ const Shop = () => {
 
 
 
+    // Sample array of objects
+
+    // Function to paginate array of objects
+    function paginate(data, page, perPage = 1) {
+        const start = (page - 1) * perPage;
+        const end = start + perPage;
+
+        return data.slice(start, end);
+    }
+
+    let perPage = 5;
+    const paginatedData = paginate(sortData, page, perPage);
+
+    useEffect(() => {
+
+    }, [page])
+
+    const handalePrev = () => {
+        setPage(page - 1)
+    };
+    const handaleNext = () => {
+        setPage(page + 1)
+    };
+    console.log(page)
+
     // product serching handaler 
     const handaleSerach = (e) => {
         setSearchValue(e.target.value)
@@ -44,11 +70,9 @@ const Shop = () => {
 
     // Product Soritng Handaler 
     const sortingData = (e) => {
-        setSortDataValue(e.target.value)
+        setSortDataValue(e.target.value);
 
     }
-
-
     return (
         <>
             <section className="md:flex md:px-52  my-12">
@@ -63,18 +87,18 @@ const Shop = () => {
                     <div className="flex flex-col items-start space-y-3">
                         <button onClick={() => setCategory()}>All Products-- ( {allItems ? allItems.length : 0} )</button>
                         <button onClick={() => setCategory("accessories")}>Accessories-- ( {accessories ? accessories.length : 0} )</button>
-                        <button onClick={() => setCategory("bracelets")}>Bracelets-- ( {bracelets ? bracelets.length : 0} )</button>
-                        <button onClick={() => setCategory("engajements")}>Engajements-- ( {engajements ? engajements.length : 0} )</button>
-                        <button onClick={() => setCategory("gift")}>Gift- ( {gift ? gift.length : 0} )</button>
-                        <button onClick={() => setCategory("jewelry")}>Jewelry-- ( {jewelry ? jewelry.length : 0} )</button>
-                        <button onClick={() => setCategory("watches")}>Watches-- ( {watches ? watches.length : 0} )</button>
+                        <button onClick={() => setCategory("bracelets", setPage(1))}>Bracelets-- ( {bracelets ? bracelets.length : 0} )</button>
+                        <button onClick={() => setCategory("engajements", setPage(1))}>Engajements-- ( {engajements ? engajements.length : 0} )</button>
+                        <button onClick={() => setCategory("gift", setPage(1))}>Gift- ( {gift ? gift.length : 0} )</button>
+                        <button onClick={() => setCategory("jewelry", setPage(1))}>Jewelry-- ( {jewelry ? jewelry.length : 0} )</button>
+                        <button onClick={() => setCategory("watches", setPage(1))}>Watches-- ( {watches ? watches.length : 0} )</button>
                     </div>
                 </div>
                 {/* Product Sections  */}
                 <div className="md:w-9/12 mx-auto bg-gray-50">
                     <h1 className="text-2xl md:text-4xl md:font-bold border-b-2  pb-3 uppercase ">{category ? category : "All Products"}</h1>
                     <div className="flex items-center justify-between my-12">
-                        <h1>SHOWING 1-9 OF 23 RESULT</h1>
+                        <h1> SHOWING {sortData ? paginatedData?.length : 0} Out OF {allItems ? sortData?.length : 0} RESULT</h1>
                         <select onClick={sortingData} className="select select-bordered max-w-xs">
                             <option disabled selected defaultValue={""}>SORTING</option>
                             <option value={"name"}>Sort By Name</option>
@@ -82,13 +106,27 @@ const Shop = () => {
                         </select>
                     </div>
                     <div className="mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
-                        {sortData?.map((item, index) => (
+                        {paginatedData?.map((item, index) => (
                             <FeaturedCard key={index} item={item}>
                             </FeaturedCard>
                         ))}
                     </div>
+                    {/* button conditonail showing  */}
+                    <div className="py-12 mx-auto flex">
+                        {
+                            sortData?.length < 6 ?
+                                "" :
+                                <div className="join  mx-auto">
+                                    <button className="join-item btn" disabled={page === 1} onClick={handalePrev}>«</button>
+                                    <button className="join-item btn">Page {page}</button>
+                                    {
+                                        paginatedData?.length < 5 ? <button disabled className="join-item btn">»</button>
+                                            : <button className="join-item btn" onClick={handaleNext}>»  </button>
+                                    }
+                                </div>
+                        }
+                    </div>
                 </div>
-
             </section>
         </>
     );

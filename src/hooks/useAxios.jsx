@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosBaseUrl = axios.create({
-    baseURL: "http://localhost:5000"
+    baseURL: "https://diamond-server-opal.vercel.app/"
 })
 
 const useAxios = () => {

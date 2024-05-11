@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
             {
                 path: "/blogDetails/:id",
                 element: <BlogDetails></BlogDetails>,
-                loader: async ({ params }) => fetch(`http://localhost:5000/blogs/${params.id}`)
+                loader: async ({ params }) => fetch(`https://diamond-server-opal.vercel.app/blogs/${params.id}`)
             },
             {
                 path: "/cart",
@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
             {
                 path: "/details/:id",
                 element: <ProductDetails></ProductDetails>,
-                loader: async ({ params }) => fetch(`http://localhost:5000/allItems/${params.id}`)
+                loader: async ({ params }) => fetch(`https://diamond-server-opal.vercel.app/allItems/${params.id}`)
             },
             {
                 path: "/login",

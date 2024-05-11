@@ -24,7 +24,7 @@ const FeaturedCard = ({ item }) => {
             description
 
         }
-        const res = await axios.post("http://localhost:5000/cart", cartInfo);
+        const res = await axios.post("https://diamond-server-opal.vercel.app/cart", cartInfo);
         if (res.data.insertedId) {
             refetch();
             toast.success("Items Added Success");

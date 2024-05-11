@@ -1,7 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { FaMailBulk, FaPhoneAlt, FaVoicemail } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaPhoneAlt, FaTwitter } from "react-icons/fa";
+import { FaLocationPin } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Contact = () => {
 
@@ -18,7 +20,6 @@ const Contact = () => {
 
         };
         reset();
-        console.log(menuItmes);
     }
     return (
 
@@ -26,7 +27,26 @@ const Contact = () => {
             <Helmet>
                 <title>Diamond || Contact</title>
             </Helmet>
-            <h1 className="text-4xl text-center font-bold">Contuct Us </h1>
+            <div className="mx-auto">
+                <h1 className="text-4xl  font-bold mb-12 shadow-lg">Contuct Us </h1>
+
+                <div className="md:flex bg-gray-200 md:rounded-full mx-auto">
+                    <div className="md:w-96 mx-auto space-y-6 p-12 rounded ">
+                        <p className="flex gap-3"><span className="text-xl font-bold"><FaLocationPin></FaLocationPin> </span>  Uttara,Dhaka,Bangladesh</p>
+                        <p className="flex gap-3"><span className="text-xl font-bold"><MdEmail /> </span>  mdsrrumon1234@gmail.com</p>
+                        <p className="flex gap-3"><span className="text-xl font-bold"><FaPhoneAlt></FaPhoneAlt> </span>   017 8352 6467</p>
+
+                    </div>
+
+                    <div className="md:w-96 mx-auto space-y-6 p-12 rounded ">
+                        <Link target="_blank" to={"https://www.facebook.com/md.srrumon121"} className="flex items-center cursor-pointer gap-1"><FaFacebookF />Facebook</Link>
+                        <Link target="_blank" to={"https://twitter.com/Rumon_Sarker1"} className="flex items-center cursor-pointer gap-1"><FaTwitter />Twitter</Link>
+                        <Link target="_blank" to={"https://www.linkedin.com/in/md-rumon-sarker-589209241/"} className="flex items-center cursor-pointer gap-1"><FaLinkedinIn />Linkedin</Link>
+                        <Link to={"/"} className="flex items-center cursor-pointer gap-1"><FaInstagram />Instaragram</Link>
+
+                    </div>
+                </div>
+            </div>
             <form onSubmit={handleSubmit(handaleAdditmes)} className="card-body">
                 <h1 className="text-2xl md:text-3xl font-bold text-gray-500 text-center my-8">Send us a message</h1>
                 <div className="md:flex gap-2 items-center">

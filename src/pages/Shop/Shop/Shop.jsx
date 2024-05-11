@@ -61,7 +61,6 @@ const Shop = () => {
     const handaleNext = () => {
         setPage(page + 1)
     };
-    console.log(page)
 
     // product serching handaler 
     const handaleSerach = (e) => {

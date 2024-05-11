@@ -11,6 +11,8 @@ import Login from "../pages/Login/Login";
 import PrivetRoutes from "./PrivetRoutes";
 import NotFound from "../pages/NotFound/NotFound";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
+import Payments from "../pages/Payments/Payments";
+import BlogDetails from "../pages/Blogs/BlogDetails";
 
 export const router = createBrowserRouter([
     {
@@ -38,6 +40,11 @@ export const router = createBrowserRouter([
                 element: <Blogs></Blogs>
             },
             {
+                path: "/blogDetails/:id",
+                element: <BlogDetails></BlogDetails>,
+                loader: async ({ params }) => fetch(`http://localhost:5000/blogs/${params.id}`)
+            },
+            {
                 path: "/cart",
                 element: <PrivetRoutes><Cart></Cart></PrivetRoutes>
             },
@@ -48,6 +55,10 @@ export const router = createBrowserRouter([
             {
                 path: "/contact",
                 element: <Contact></Contact>
+            },
+            {
+                path: "/payments",
+                element: <Payments></Payments>
             },
             {
                 path: "/details/:id",

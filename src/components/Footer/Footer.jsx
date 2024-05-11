@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 const Footer = () => {
 
     // withouSidebarRoutes 
-
     const withouSidebarRoutes = ["/404", "/login", "/signup"];
     const { pathname } = useLocation();
     if (withouSidebarRoutes.some((item) => pathname.includes(item)))
@@ -35,8 +34,8 @@ const Footer = () => {
                     <h6 className="footer-title">Company</h6>
                     <Link to={"/about"} className="link link-hover">About us</Link>
                     <Link to={"/contact"} className="link link-hover">Contact us</Link>
-                    <a className="link link-hover">Jobs</a>
-                    <a className="link link-hover">Press kit</a>
+                    <Link to={"/blogs"} className="link link-hover">Blog</Link>
+                    <Link to={"/shop"} className="link link-hover">Shop</Link>
                 </nav>
                 <nav className="items-center space-y-4 ">
                     <h6 className="footer-title">FOLLOW US</h6>
@@ -51,7 +50,7 @@ const Footer = () => {
             </footer>
             <footer className="footer footer-center pb-12  md:bg-black bg-gray-700 text text-white ">
                 <aside>
-                    <p>Copyright © 2024 - All right reserved by ACME Industries Ltd</p>
+                    <p>Copyright © {new Date().getFullYear()} - All right reserved by Diamond Shop</p>
                 </aside>
             </footer>
         </>
